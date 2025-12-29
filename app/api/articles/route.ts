@@ -35,6 +35,7 @@ export async function POST(req: Request) {
             title,
             slug,
             content,
+            status: "DRAFT",
             authorId: user.id,
         },
     });

@@ -5,6 +5,8 @@ import { verifyToken } from "@/lib/jwt";
 export async function getAuthUser() {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
+    console.log("token in auth.ts", token);
+
 
     if (!token) return null;
 

@@ -19,17 +19,19 @@ export async function POST(req: NextRequest) {
     if (!isValid) {
         return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
-    const token = signToken({ id: Number(user.id), email: user.email });
+    const token = signToken({ id: user.id, email: user.email });
 
 
     const response = NextResponse.json({
         message: "Login successful",
     });
+    console.log("token", token);
+
 
     response.cookies.set("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "lax",
         path: "/",
     });
 
