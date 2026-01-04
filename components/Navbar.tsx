@@ -1,7 +1,9 @@
 "use client";
+
+import Link from "next/link";
 import React from "react";
 
-function Navbar() {
+export default function Navbar() {
   const logout = async () => {
     await fetch("/api/auth/logout", {
       method: "POST",
@@ -9,29 +11,39 @@ function Navbar() {
 
     window.location.href = "/auth/login";
   };
+
   return (
-    <div>
-      <nav className="bg-gray-800 p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="text-white font-bold text-xl ">MyApp</div>
-          <div className="">
-            <a href="/" className="text-gray-300 hover:text-white mx-2">
-              Home
-            </a>
-            <a href="/posts" className="text-gray-300 hover:text-white mx-2">
-              Posts
-            </a>
-            <a href="/chat" className="text-gray-300 hover:text-white mx-2">
-              Chat
-            </a>
-          </div>
-          <button onClick={logout} className="text-white hover:text-gray-300">
+    <nav className="bg-gray-900 px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="text-xl font-bold text-white tracking-wide">
+          Superblog
+        </Link>
+
+        {/* Navigation */}
+        <div className="flex items-center gap-6">
+          <Link
+            href="/articles"
+            className="text-gray-300 hover:text-white transition"
+          >
+            Articles
+          </Link>
+
+          <Link
+            href="/articles/new"
+            className="rounded bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-500 transition"
+          >
+            Write
+          </Link>
+
+          <button
+            onClick={logout}
+            className="text-sm text-red-400 hover:text-red-300 transition"
+          >
             Logout
           </button>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 }
-
-export default Navbar;

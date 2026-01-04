@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type PageProps = {
   params: Promise<{
@@ -73,10 +74,14 @@ export default async function ArticlePage({ params }: PageProps) {
   }
 
   return (
-    <article className="prose mx-auto py-8">
-      <h1>{article.title}</h1>
-      <p className="text-sm text-gray-500">By {article.author.name}</p>
-      <div>{article.content}</div>
+    <article className="max-w-3xl mx-auto px-6 py-12">
+      <h1 className="text-4xl font-bold text-gray-900 mb-4">{article.title}</h1>
+
+      <p className="text-sm text-gray-500 mb-10">By {article.author.name}</p>
+
+      <div className="prose prose-lg prose-gray max-w-none">
+        {article.content}
+      </div>
     </article>
   );
 }
