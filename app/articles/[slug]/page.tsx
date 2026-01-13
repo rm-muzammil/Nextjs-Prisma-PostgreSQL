@@ -1,7 +1,9 @@
+import MDXRenderer from "@/components/MDXRenderer";
 import prisma from "@/lib/prisma";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 type PageProps = {
   params: Promise<{
     slug: string;
@@ -80,7 +82,10 @@ export default async function ArticlePage({ params }: PageProps) {
       <p className="text-sm text-gray-500 mb-10">By {article.author.name}</p>
 
       <div className="prose prose-lg prose-gray max-w-none">
-        {article.content}
+        {/* <MDXRenderer source={article.content} /> */}
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {article.content}
+        </ReactMarkdown>
       </div>
     </article>
   );
